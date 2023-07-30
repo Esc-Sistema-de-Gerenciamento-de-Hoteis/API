@@ -7,15 +7,15 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('email')
-      table.string('login')
       table.string('nome')
       table.string('perfil')
-      table.string('senha')
+      table.string('password')
       table.string('sub')
       table.string('picture')
-      table.string('token')
+      table.boolean('status').defaultTo(1)
       table.timestamp('created_at', { useTz: true })
       table.string('updated_at')
+      
     })
   }
 

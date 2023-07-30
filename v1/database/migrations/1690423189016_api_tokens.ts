@@ -6,7 +6,7 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.integer('user_id').unsigned().references('id').inTable('tb_usuarios').onDelete('CASCADE')
+      table.integer('user_id').unsigned().references('id').inTable('tb_usuarios')
       table.string('name').notNullable()
       table.string('type').notNullable()
       table.string('token', 64).notNullable().unique()
@@ -15,7 +15,7 @@ export default class extends BaseSchema {
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
        */
       table.timestamp('expires_at', { useTz: true }).nullable()
-      table.timestamp('created_at', { useTz: true }).notNullable()
+      table.string('created_at')
     })
   }
 

@@ -21,5 +21,29 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async () => {
-  return { hello: 'world' }
+  return { message: 'The API is working...' }
 })
+
+/*********************************************************************/ 
+/*                                                                   *
+/*                   USUÁRIO - Aplicação                             *
+/*                                                                   *
+/* *******************************************************************/
+
+
+Route
+.group(() => {
+  
+    Route.post('/criacao_usuario', 'UsuariosController.criacao_usuario')
+
+    Route.post('/consulta_usuario', 'UsuariosController.consulta_usuario')
+
+    Route.post('/atualizar_usuario', 'UsuariosController.atualizar_usuario')
+
+    Route.post('/autenticacao', 'UsuariosController.autenticacao')
+
+
+
+  }).prefix('/v1')
+
+
