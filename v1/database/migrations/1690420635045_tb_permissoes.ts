@@ -5,11 +5,12 @@ export default class extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-      table.string('perfil')
+      table.increments('id').primary()
+      table.integer('perfil').unsigned().references('id').inTable('tb_perfil')
       table.string('permissao')
       table.timestamp('created_at', { useTz: true })
-      table.string('updated_at')    })
+      table.string('updated_at')    
+    })
   }
 
   public async down () {

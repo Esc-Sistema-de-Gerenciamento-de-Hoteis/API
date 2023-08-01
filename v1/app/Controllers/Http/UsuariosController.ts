@@ -3,7 +3,7 @@ import TbUsuario from 'App/Models/TbUsuario'
 
 export default class UsuariosController {
   //#region Criação de Usuário
-  public async criacao_usuario({request,auth,response}: HttpContextContract) {
+  public async criacao_usuario({request,auth}: HttpContextContract) {
     console.log("criacao_usuario")
     try{
       const post = request.body()
@@ -15,28 +15,21 @@ export default class UsuariosController {
         }
       }
 
-    const user = await TbUsuario.create(post)
+    await TbUsuario.create(post)
 
-    const email = post.email
-    const password = post.password
+    const usuario = await TbUsuario.findBy('email', post.email)
 
-    const token = await auth.use('api').attempt(email, password, {
+    const token = await auth.use('api').attempt(post.email, post.password,{
       expiresIn: '1day',
-      name: user?.serialize().email,  //passando informações pertinentes ao usuário no login
+      name: usuario?.serialize().email
     })
 
-    response.status(201)
-
-    return{
-      message: "Usuário cadastrado com sucesso",
-      //token: token, 
-      //user: user?.serialize(), //passando informações pertinentes ao usuário no login
+    return {
+      message: 'Usuário cadastrado com sucesso!',
+      token: token.token
     }
-      
-
 
     }catch(message){
-      console.log(message)
       return message
     }
 
@@ -63,11 +56,11 @@ export default class UsuariosController {
   public async atualizar_usuario({auth,request}: HttpContextContract) {
     try{
       if(await auth.use('api').authenticate()){
-        const post = request.only(['email','nome','perfil','password','status'])
+        const post = request.only(['email','nome','perfil_id','password','status'])
 
         var selectUsuario = await TbUsuario.findByOrFail('email',post.email)
         selectUsuario.nome = post.nome
-        selectUsuario.perfil = post.perfil
+        selectUsuario.perfil_id = post.perfil_id
         selectUsuario.password = post.password
         selectUsuario.status = post.status
 
@@ -89,26 +82,6 @@ export default class UsuariosController {
   }
   //#endregion
 
-  //#region Autenticacao
-    public async autenticacao({auth,request, response}: HttpContextContract) {
-      console.log("Autenticacao")
-      try{
-
-        const post = request.body()
-
-        try {
-          const token = await auth.use('api').attempt(post.email, post.password)
-          console.log("Usuário autenticado")
-          return 'Usuario autenticado'
-        } catch {
-          return response.unauthorized('Credenciais invalidas')
-        }
-  
-      }catch(erro){
-        return erro
-      }
-    }
-    //#endregion
 
 }
 

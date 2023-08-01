@@ -5,7 +5,7 @@ export default class extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary()
       table.string("nome")
       table.string("sobrenome")
       table.string("cpf")
@@ -19,6 +19,7 @@ export default class extends BaseSchema {
       table.string("estado")
       table.string("contato_emergencia")
       table.string("estado_civil")
+      table.integer("cadastrado_por").unsigned().references('id').inTable('tb_usuarios')
       table.timestamp('created_at', { useTz: true })
       table.string('updated_at')    })
   }

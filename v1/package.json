@@ -21,10 +21,12 @@
     "youch-terminal": "^2.2.2"
   },
   "dependencies": {
+    "@adonisjs/ally": "^4.1.5",
     "@adonisjs/auth": "^8.2.3",
     "@adonisjs/core": "^5.9.0",
     "@adonisjs/lucid": "^18.4.0",
     "@adonisjs/repl": "^3.1.11",
+    "ally": "^0.2.13",
     "argon2": "^0.30.3",
     "luxon": "^3.3.0",
     "mysql2": "^3.5.2",

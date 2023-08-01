@@ -34,16 +34,58 @@ Route.get('/', async () => {
 Route
 .group(() => {
   
-    Route.post('/criacao_usuario', 'UsuariosController.criacao_usuario')
+/* ****************** Criando *****************************************/
+Route.post('/criacao_usuario', 'UsuariosController.criacao_usuario')
 
-    Route.post('/consulta_usuario', 'UsuariosController.consulta_usuario')
+/* ****************** Consultando **************************************/
+Route.post('/consulta_usuario', 'UsuariosController.consulta_usuario')
 
-    Route.post('/atualizar_usuario', 'UsuariosController.atualizar_usuario')
+Route.post('/atualizar_usuario', 'UsuariosController.atualizar_usuario')
 
-    Route.post('/autenticacao', 'UsuariosController.autenticacao')
+/*********************************************************************/
+/*                                                                   *
+/*                   Perfil                                          *
+/*                                                                   *
+/* *******************************************************************/
+
+/* ****************** Criando *****************************************/
+Route.post('/criacao_perfil','PerfilsController.criacao_perfil_post')
+
+
+/*********************************************************************/
+/*                                                                   *
+/*                   Auth                                            *
+/*                                                                   *
+/* *******************************************************************/
+
+/* ****************** Database *****************************************/
+Route.post('/autenticacao', 'AutenticacaosController.autenticacao')
+
+
+/* ****************** Database *****************************************/
+Route.post('/google_auth', 'AutenticacaosController.google_auth')
+
+Route.get('/google_auth', 'AutenticacaosController.google_auth')
 
 
 
-  }).prefix('/v1')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+}).prefix('/v1')
+
+
+  //Off
+  Route.post('/gerar_token','TokensController.gerar_token')
 
